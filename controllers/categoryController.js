@@ -1,6 +1,5 @@
 const Category = require('../models/Category');
 
-// Получить все категории
 exports.getAllCategories = async (req, res) => {
     try {
         const categories = await Category.find();
@@ -10,7 +9,6 @@ exports.getAllCategories = async (req, res) => {
     }
 };
 
-// Создать категорию (Admin only)
 exports.createCategory = async (req, res) => {
     try {
         const category = new Category(req.body);
@@ -21,13 +19,23 @@ exports.createCategory = async (req, res) => {
     }
 };
 
-// Обновить категорию (Admin only)
 exports.updateCategory = async (req, res) => {
     try {
         const updated = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updated) return res.status(404).json({ message: 'Category not found' });
         res.json(updated);
     } catch (err) {
         res.status(400).json({ message: err.message });
+    }
+};
+
+exports.deleteCategory = async (req, res) => {
+    try {
+        const deleted = await Category.findByIdAndDelete(req.params.id);
+        if (!deleted) return res.status(404).json({ message: 'Category not found' });
+        res.json({ message: 'Category deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
