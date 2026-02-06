@@ -40,7 +40,7 @@ I have implemented two related entities with full Create, Read, Update, and Dele
 
 1.  **Clone the repository**:
     ```bash
-    git clone <[your-repository-link](https://github.com/Zharrrkynn/webbbb4>
+    git clone <[https://github.com/Zharrrkynn/webbbb4]
     ```
 
 2.  **Install dependencies**:
