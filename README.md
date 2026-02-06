@@ -52,8 +52,8 @@ I have implemented two related entities with full Create, Read, Update, and Dele
     Create a `.env` file in the root directory:
     ```env
     PORT=3000
-    MONGO_URI=your_mongodb_atlas_connection_string
-    JWT_SECRET=your_super_secret_key
+    MONGO_URI=mongodb+srv://berkaspan_db_user:of0Rj1LkMfFrLZNI@cluster0.uxf5goa.mongodb.net/?appName=Cluster0
+    JWT_SECRET=super_secret_key_123
     ```
 
 4.  **Run the application**:
