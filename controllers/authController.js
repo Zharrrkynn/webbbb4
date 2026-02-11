@@ -1,35 +1,61 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const Category = require('../models/Category');
 
-exports.register = async (req, res) => {
+exports.getAllCategories = async (req, res) => {
     try {
-        const { email, password, role } = req.body;
-    
-        const user = new User({ email, password, role });
-        await user.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        const categories = await Category.find();
+        res.json(categories);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ message: err.message });
     }
 };
 
-exports.login = async (req, res) => {
+exports.createCategory = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        if (!user) return res.status(401).json({ message: 'User not found' });
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
-
-        const token = jwt.sign(
-            { id: user._id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: '1d' }
-        );
-        res.json({ token, role: user.role });
+        const category = new Category(req.body);
+        await category.save();
+        res.status(201).json(category);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(400).json({ message: err.message });
+    }
+};
+
+exports.updateCategory = async (req, res) => {
+    try {
+        const updated = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updated) return res.status(404).json({ message: 'Category not found' });
+        res.json(updated);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
+const Product = require('../models/product'); 
+
+exports.deleteCategory = async (req, res) => {
+    try {
+
+        const productCount = await Product.countDocuments({ category: req.params.id });
+        if (productCount > 0) {
+            return res.status(400).json({ 
+                message: 'Cannot delete category: It has products linked to it.' 
+            });
+        }
+
+        const deleted = await Category.findByIdAndDelete(req.params.id);
+        if (!deleted) return res.status(404).json({ message: 'Category not found' });
+        
+        res.json({ message: 'Category deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
+exports.deleteCategory = async (req, res) => {
+    try {
+        await Category.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Category deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
