@@ -69,7 +69,8 @@ A production-ready Full-Stack application built using the MERN architecture (Mon
    The app will be available at http://localhost:3000.
 
 **🧪 Testing with Postman**
-1.A Postman collection file is included in the /tests folder of this repository.
+
+1. A Postman collection file is included in the /tests folder of this repository.
 
 2.Import Product_Management.postman_collection.json into Postman.
 
