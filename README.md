@@ -3,8 +3,8 @@
 A production-ready Full-Stack application built using the MERN architecture (MongoDB, Express, Node.js). [cite_start]This system allows administrators to manage a product inventory with full CRUD (Create, Read, Update, Delete) functionality, category linking, and secure JWT-based authentication[cite: 3, 4, 8].
 
 ## 🔗 Live Links
-* **Production URL:** [Insert your Render.com App Link here] (e.g., https://product-mgmt-system.onrender.com)
-* **API Base URL:** [Insert your Render.com API Link here]/api
+* **Production URL:** https://webbbb4.onrender.com
+* **API Base URL:** https://webbbb4.onrender.com/api/api
 
 ---
 
